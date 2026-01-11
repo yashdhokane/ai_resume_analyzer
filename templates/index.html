@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Free AI Resume Analyzer</title>
+</head>
+
+<body>
+
+    <h2>Free AI Resume Analyzer & Job Matcher</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        <label>Upload Resume (PDF)</label><br><br>
+        <input type="file" name="resume" required><br><br>
+
+        <label>Job Description</label><br><br>
+        <textarea name="job_description" rows="10" cols="70" required></textarea><br><br>
+
+        <button type="submit">Analyze</button>
+    </form>
+
+    {% if result %}
+    <hr>
+    <h3 style="color: {{ result.color }}">
+        {{ result.status }}
+    </h3>
+
+    <p><strong>Match Percentage:</strong> {{ result.score }}%</p>
+    <p>{{ result.message }}</p>
+
+    <h4>✅ Matched Keywords:</h4>
+    <p>{{ result.matched_keywords | join(', ') if result.matched_keywords else 'None' }}</p>
+
+    <h4>❌ Missing Keywords (Add these to resume):</h4>
+    <p>{{ result.missing_keywords | join(', ') if result.missing_keywords else 'None' }}</p>
+    {% endif %}
+
+</body>
+
+</html>
